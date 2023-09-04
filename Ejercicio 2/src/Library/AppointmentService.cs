@@ -1,11 +1,12 @@
 ﻿using System;
+using System.Security.Cryptography.X509Certificates;
 using System.Text;
 
 namespace Library
 {
     public class AppointmentService
     {
-        public static string CreateAppointment(string name, string id, string phoneNumber, DateTime date, string appoinmentPlace, string doctorName)
+        public static string CreateAppointment(string name, string id, string phoneNumber, string doctorName, string consultorio,string hora, string Lugar)
         {
             StringBuilder stringBuilder = new StringBuilder("Scheduling appointment...\n");
             Boolean isValid = true;
@@ -28,7 +29,7 @@ namespace Library
                 isValid = false;
             }
 
-            if (string.IsNullOrEmpty(appoinmentPlace))
+            if (string.IsNullOrEmpty(Lugar))
             {
                 stringBuilder.Append("Unable to schedule appointment, 'appoinment place' is required\n");
                 isValid = false;
@@ -44,10 +45,16 @@ namespace Library
             if (isValid)
             {
                 stringBuilder.Append("Appoinment scheduled");
+                Paciente pacientei= new Paciente("Federico", "5572118-4","094256804");
+                DoctorInfo doctor= new DoctorInfo("Carlos","C2");
+                Appointment Cita= new Appointment(doctor,pacientei,hora,Lugar);
+
             }
+
+
 
             return stringBuilder.ToString();
         }
-
+ 
     }
 }
